@@ -1,4 +1,5 @@
 import java.util.LinkedList;
+import java.util.Random;
 
 /**
  * Manipulating the board
@@ -20,9 +21,21 @@ public class Solver {
 	 *            board to shuffle
 	 * @param times
 	 *            amount of random moves
+	 * @return shuffled board
 	 */
-	public void shuffle(Board board, int times) {
-
+	public Board shuffle(Board board, int times) {
+		for (int i = 0; i < times; i++) {
+			int random = new Random().nextInt(board.possibleNextBoards().size());
+			int item = 0;
+			for (Board next : board.possibleNextBoards()) {
+				if (random == item) {
+					board = next;
+				} else {
+					item++;
+				}
+			}
+		}
+		return board;
 	}
 
 	/**

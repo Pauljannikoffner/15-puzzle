@@ -59,7 +59,7 @@ public class UI {
 		frame.setVisible(true);
 	}
 
-	public void move(Board board) {
+	public void display(Board board) {
 		for (int x = 0; x < 4; x++) {
 			for (int y = 0; y < 4; y++) {
 				tileButtons[x][y].setText("" + board.getTiles()[x][y]);

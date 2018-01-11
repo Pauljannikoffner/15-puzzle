@@ -19,7 +19,8 @@ public class Controller implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(ui.getShuffle())) {
-			System.out.println("Hallo");
+			board = solver.shuffle(board, 1);
+			ui.display(board);
 		} else if (e.getSource().equals(ui.getSolve())) {
 			LinkedList<Board> path = solver.solve(board);
 			System.out.println("Solution:");
@@ -31,13 +32,14 @@ public class Controller implements ActionListener {
 					}
 					System.out.println("");
 				}
-				ui.move(path.get(i - 1));
+				ui.display(path.get(i - 1));
 			}
 		} else {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
 					if (e.getSource().equals(ui.getTileButtons(x, y))) {
-
+						board.move(x, y);
+						ui.display(board);
 					}
 				}
 			}
