@@ -80,21 +80,21 @@ public class Board {
 	 * 
 	 * @return hamming-distance of the board; 0 if goal is reached
 	 */
-	public int hammingDistance() {
-		int result = 0;
-
-		for (int x = 0; x < 4; x++) {
-			for (int y = 0; y < 4; y++) {
-				if (tiles[x][y] != 0) {
-					if (tiles[x][y] != (4 * x + y + 1)) {
-						result++;
-					}
-				}
-			}
-		}
-
-		return result;
-	}
+//	public int hammingDistance() {
+//		int result = 0;
+//
+//		for (int x = 0; x < 4; x++) {
+//			for (int y = 0; y < 4; y++) {
+//				if (tiles[x][y] != 0) {
+//					if (tiles[x][y] != (4 * x + y + 1)) {
+//						result++;
+//					}
+//				}
+//			}
+//		}
+//
+//		return result;
+//	}
 
 	/**
 	 * Returns the manhatten-distance of the board (sum of the manhatten-distances

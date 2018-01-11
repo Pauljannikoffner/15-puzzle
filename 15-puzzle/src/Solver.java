@@ -83,9 +83,10 @@ public class Solver {
 		LinkedList<Board> result = null;
 		int best = Integer.MAX_VALUE;
 		for (int i = 0; i < frontier.size(); i++) {
-			if (frontier.get(i).getFirst().manhattenDistance() < best) {
+			LinkedList<Board> path = frontier.get(i);
+			if (path.getFirst().manhattenDistance() + path.size() < best) {
 				result = frontier.get(i);
-				best = result.getFirst().manhattenDistance();
+				best = result.getFirst().manhattenDistance() + path.size();
 			}
 		}
 		frontier.remove(result);
@@ -100,12 +101,14 @@ public class Solver {
 	 */
 	private void addNewPaths(LinkedList<Board> path) {
 		for (Board nextBoard : path.getFirst().possibleNextBoards()) {
-			LinkedList<Board> nextPath = new LinkedList<Board>();
-			for (int i = 0; i < path.size(); i++) {
-				nextPath.add(i, path.get(i).clone());
+			if (!path.contains(nextBoard)) {
+				LinkedList<Board> nextPath = new LinkedList<Board>();
+				for (int i = 0; i < path.size(); i++) {
+					nextPath.add(i, path.get(i).clone());
+				}
+				nextPath.addFirst(nextBoard);
+				frontier.addFirst(nextPath);
 			}
-			nextPath.addFirst(nextBoard);
-			frontier.addFirst(nextPath);
 		}
 	}
 }
