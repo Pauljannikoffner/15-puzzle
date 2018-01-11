@@ -9,23 +9,34 @@ public class Board {
 
 	private int[][] tiles;
 
-	/**
-	 * Creates a new board and initializes it in the goal state.
-	 */
 	public Board() {
 		tiles = new int[4][4];
 	}
 
+	public Board(int[][] tiles) {
+		this.tiles = tiles;
+	}
+
 	/**
-	 * Initializes the board in the goal state
+	 * Sets the board to the goal state
 	 */
-	public void initialize() {
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
-				tiles[x][y] = 4 * y + x + 1;
+	public void goalState() {
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				tiles[x][y] = 4 * x + y + 1;
 			}
 		}
 		tiles[3][3] = 0;
+	}
+
+	/**
+	 * Sets the board to the test state
+	 */
+	public void testState() {
+		tiles[3][0] = 0;
+		tiles[3][1] = 13;
+		tiles[3][2] = 14;
+		tiles[3][3] = 15;
 	}
 
 	/**
@@ -65,17 +76,19 @@ public class Board {
 
 	/**
 	 * Returns the hamming-distance of the board (value of 0 to 9, +1 for each
-	 * not-optimal tile; returns 0 if goal is reached).
+	 * not-optimal tile).
 	 * 
-	 * @return hamming-distance of the board
+	 * @return hamming-distance of the board; 0 if goal is reached
 	 */
 	public int hammingDistance() {
 		int result = 0;
 
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
-				if (tiles[x][y] != (4 * y + x + 1)) {
-					result++;
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				if (tiles[x][y] != 0) {
+					if (tiles[x][y] != (4 * x + y + 1)) {
+						result++;
+					}
 				}
 			}
 		}
@@ -87,20 +100,34 @@ public class Board {
 	 * Returns the manhatten-distance of the board (sum of the manhatten-distances
 	 * of all tiles to their optimal positions).
 	 * 
-	 * @return manhatten-distance of the board
+	 * @return manhatten-distance of the board; 0 if goal is reached
 	 */
 	public int manhattenDistance() {
 		int result = 0;
 
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
-				int tile = tiles[x][y];
-				result += Math.abs(tile / 4 - (x + 1) / 4);
-				result += Math.abs(tile % 4 - (y + 1) % 4);
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				if (tiles[x][y] != 0) {
+					result += Math.abs((tiles[x][y] - 1) / 4 - x);
+					result += Math.abs((tiles[x][y] - 1) % 4 - y);
+				}
 			}
 		}
 
 		return result;
+	}
+
+	/**
+	 * Indicates whether a tile is movable.
+	 * 
+	 * @param x
+	 *            x-coordinate
+	 * @param y
+	 *            y-coordinate
+	 * @return true if tile is movable; false otherwise
+	 */
+	public boolean isMovable(int x, int y) {
+		return (Math.abs(x - blankX()) + Math.abs(y - blankY())) == 1;
 	}
 
 	/**
@@ -123,25 +150,17 @@ public class Board {
 		return tiles;
 	}
 
-	public void setTiles(int[][] tiles) {
-		this.tiles = tiles;
-	}
-
 	@Override
 	public Board clone() {
-		Board result = new Board();
-
 		int[][] clonedTiles = new int[4][4];
 
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
 				clonedTiles[x][y] = tiles[x][y];
 			}
 		}
 
-		result.setTiles(clonedTiles);
-
-		return result;
+		return new Board(clonedTiles);
 	}
 
 	/**
@@ -150,8 +169,8 @@ public class Board {
 	 * @return x-coordinate of the blank tile.
 	 */
 	private int blankX() {
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
 				if (tiles[x][y] == 0) {
 					return x;
 				}
@@ -166,8 +185,8 @@ public class Board {
 	 * @return y-coordinate of the blank tile.
 	 */
 	private int blankY() {
-		for (int x = 0; x < 3; x++) {
-			for (int y = 0; y < 3; y++) {
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
 				if (tiles[x][y] == 0) {
 					return y;
 				}
