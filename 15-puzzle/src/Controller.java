@@ -27,19 +27,23 @@ public class Controller implements ActionListener {
 			board = solver.shuffle(board, 5);
 			ui.display(board);
 		} else if (e.getSource().equals(ui.getSolve())) {
-			LinkedList<Board> path = solver.solve(board);
-			board = path.getFirst();
-			for (int i = path.size(); i > 0; i--) {
-				System.out.println("");
-				for (int x = 0; x < 4; x++) {
-					for (int y = 0; y < 4; y++) {
-						System.out.print(prettyOutput(path.get(i - 1).getTiles()[x][y]));
-					}
+			if (solver.isSolvable(board)) {
+				LinkedList<Board> path = solver.solve(board);
+				board = path.getFirst();
+				for (int i = path.size(); i > 0; i--) {
 					System.out.println("");
+					for (int x = 0; x < 4; x++) {
+						for (int y = 0; y < 4; y++) {
+							System.out.print(prettyOutput(path.get(i - 1).getTiles()[x][y]));
+						}
+						System.out.println("");
+					}
+					ui.display(path.get(i - 1));
 				}
-				ui.display(path.get(i - 1));
+				System.out.println("");
+			} else {
+				System.out.println("This Puzzle is not solvable.");
 			}
-			System.out.println("");
 		} else if (e.getSource().equals(ui.getCustomBoard())) {
 			board.setCustom(true);
 			board.setToEmptyState();

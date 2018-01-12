@@ -47,7 +47,21 @@ public class Solver {
 	 * @return true if this board has a solution; false otherwise
 	 */
 	public boolean isSolvable(Board board) {
-		return true;
+		int result = 0;
+		int previous = board.getTiles()[0][0];
+
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				if (board.getTiles()[x][y] == 0) {
+					result += x + 1;
+				} else if (previous > board.getTiles()[x][y]) {
+					result += previous;
+					result -= board.getTiles()[x][y];
+				}
+				previous = board.getTiles()[x][y];
+			}
+		}
+		return result % 2 == 0;
 	}
 
 	/**
@@ -58,22 +72,17 @@ public class Solver {
 	 * @return boards
 	 */
 	public LinkedList<Board> solve(Board board) {
-		if (isSolvable(board)) {
-			LinkedList<Board> path = new LinkedList<Board>();
-			path.add(board);
-			frontier.addFirst(path);
+		LinkedList<Board> path = new LinkedList<Board>();
+		path.add(board);
+		frontier.addFirst(path);
 
-			while (bestPathInFrontier().getFirst().manhattenDistance() > 0) {
-				path = bestPathInFrontier();
-				frontier.remove(path);
-				addNewPaths(path);
-			}
-			System.out.println("Puzzle solved! Solution:");
-			return bestPathInFrontier();
-		} else {
-			System.out.println("This Puzzle is not solvable");
-			return null;
+		while (bestPathInFrontier().getFirst().manhattenDistance() > 0) {
+			path = bestPathInFrontier();
+			frontier.remove(path);
+			addNewPaths(path);
 		}
+		System.out.println("Puzzle solved! Solution:");
+		return bestPathInFrontier();
 	}
 
 	/**
