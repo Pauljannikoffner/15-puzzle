@@ -10,8 +10,7 @@ public class Controller implements ActionListener {
 
 	public Controller() {
 		board = new Board();
-		board.goalState();
-		board.testState();
+		board.setToGoalState();
 		solver = new Solver();
 		ui = new UI(board, this);
 	}
@@ -36,7 +35,7 @@ public class Controller implements ActionListener {
 			}
 		} else if (e.getSource().equals(ui.getCustomBoard())) {
 			board.setCustom(true);
-			board.emptyState();
+			board.setToEmptyState();
 			ui.customization();
 			ui.displayCustom(board);
 		} else {
