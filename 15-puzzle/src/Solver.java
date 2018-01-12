@@ -63,12 +63,13 @@ public class Solver {
 			path.add(board);
 			frontier.addFirst(path);
 
-			while (path.getFirst().manhattenDistance() > 0) {
-				path = removeBestPathFromFrontier();
+			while (bestPathInFrontier().getFirst().manhattenDistance() > 0) {
+				path = bestPathInFrontier();
+				frontier.remove(path);
 				addNewPaths(path);
 			}
-			System.out.println("Puzzle solved");
-			return removeBestPathFromFrontier();
+			System.out.println("Puzzle solved! Solution:");
+			return bestPathInFrontier();
 		} else {
 			System.out.println("This Puzzle is not solvable");
 			return null;
@@ -80,7 +81,7 @@ public class Solver {
 	 * 
 	 * @return best path
 	 */
-	private LinkedList<Board> removeBestPathFromFrontier() {
+	private LinkedList<Board> bestPathInFrontier() {
 		LinkedList<Board> result = null;
 		int best = Integer.MAX_VALUE;
 		for (int i = 0; i < frontier.size(); i++) {
@@ -90,7 +91,6 @@ public class Solver {
 				best = result.getFirst().manhattenDistance() + path.size();
 			}
 		}
-		frontier.remove(result);
 		return result;
 	}
 

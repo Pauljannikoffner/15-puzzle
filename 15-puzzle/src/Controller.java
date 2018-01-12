@@ -24,12 +24,12 @@ public class Controller implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource().equals(ui.getShuffle())) {
-			board = solver.shuffle(board, 1);
+			board = solver.shuffle(board, 5);
 			ui.display(board);
 		} else if (e.getSource().equals(ui.getSolve())) {
 			LinkedList<Board> path = solver.solve(board);
-			System.out.println("Solution:");
-			for (int i = path.size(); i > 1; i--) {
+			board = path.getFirst();
+			for (int i = path.size(); i > 0; i--) {
 				System.out.println("");
 				for (int x = 0; x < 4; x++) {
 					for (int y = 0; y < 4; y++) {
@@ -39,6 +39,7 @@ public class Controller implements ActionListener {
 				}
 				ui.display(path.get(i - 1));
 			}
+			System.out.println("");
 		} else if (e.getSource().equals(ui.getCustomBoard())) {
 			board.setCustom(true);
 			board.setToEmptyState();

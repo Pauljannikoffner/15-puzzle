@@ -2,6 +2,7 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
 
@@ -42,6 +43,7 @@ public class UI {
 				tileButtons[x][y] = new JButton("" + board.getTiles()[x][y]);
 				tileButtons[x][y].addActionListener(listener);
 				tileButtons[x][y].setPreferredSize(new Dimension(100, 100));
+				tileButtons[x][y].setFont(new Font("Arial", Font.PLAIN, 25));
 				tileButtons[x][y].setEnabled(board.isMovable(x, y));
 				boardPanel.add(tileButtons[x][y]);
 			}
@@ -55,14 +57,17 @@ public class UI {
 
 		shuffle = new JButton("shuffle");
 		shuffle.addActionListener(listener);
+		shuffle.setFont(new Font("Arial", Font.PLAIN, 25));
 		commandPanel.add(shuffle);
 
 		solve = new JButton("solve");
 		solve.addActionListener(listener);
+		solve.setFont(new Font("Arial", Font.PLAIN, 25));
 		commandPanel.add(solve);
 
-		customBoard = new JButton("custom board");
+		customBoard = new JButton("custom");
 		customBoard.addActionListener(listener);
+		customBoard.setFont(new Font("Arial", Font.PLAIN, 25));
 		commandPanel.add(customBoard);
 
 		frame.add(commandPanel, BorderLayout.PAGE_END);
