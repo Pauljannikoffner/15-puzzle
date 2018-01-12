@@ -34,12 +34,27 @@ public class Controller implements ActionListener {
 				}
 				ui.display(path.get(i - 1));
 			}
+		} else if (e.getSource().equals(ui.getCustomBoard())) {
+			board.setCustom(true);
+			board.emptyState();
+			ui.customization();
+			ui.displayCustom(board);
 		} else {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
 					if (e.getSource().equals(ui.getTileButtons(x, y))) {
-						board.move(x, y);
-						ui.display(board);
+						if (board.isCustom()) {
+							board.nextCustomTile(x, y);
+							ui.displayCustom(board);
+							if (board.customizationCompleted()) {
+								board.setCustom(false);
+								ui.customizationCompleted();
+								ui.display(board);
+							}
+						} else {
+							board.move(x, y);
+							ui.display(board);
+						}
 					}
 				}
 			}

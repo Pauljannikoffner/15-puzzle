@@ -8,13 +8,24 @@ import java.util.HashSet;
 public class Board {
 
 	private int[][] tiles;
+	private boolean custom;
 
 	public Board() {
 		tiles = new int[4][4];
+		custom = false;
 	}
 
 	public Board(int[][] tiles) {
 		this.tiles = tiles;
+		custom = false;
+	}
+
+	public void emptyState() {
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				tiles[x][y] = 0;
+			}
+		}
 	}
 
 	/**
@@ -80,21 +91,21 @@ public class Board {
 	 * 
 	 * @return hamming-distance of the board; 0 if goal is reached
 	 */
-//	public int hammingDistance() {
-//		int result = 0;
-//
-//		for (int x = 0; x < 4; x++) {
-//			for (int y = 0; y < 4; y++) {
-//				if (tiles[x][y] != 0) {
-//					if (tiles[x][y] != (4 * x + y + 1)) {
-//						result++;
-//					}
-//				}
-//			}
-//		}
-//
-//		return result;
-//	}
+	// public int hammingDistance() {
+	// int result = 0;
+	//
+	// for (int x = 0; x < 4; x++) {
+	// for (int y = 0; y < 4; y++) {
+	// if (tiles[x][y] != 0) {
+	// if (tiles[x][y] != (4 * x + y + 1)) {
+	// result++;
+	// }
+	// }
+	// }
+	// }
+	//
+	// return result;
+	// }
 
 	/**
 	 * Returns the manhatten-distance of the board (sum of the manhatten-distances
@@ -146,8 +157,54 @@ public class Board {
 		tiles[x][y] = 0;
 	}
 
+	/**
+	 * Places the next custom tile at the given position
+	 * 
+	 * @param tileX
+	 *            x-coordinate
+	 * @param tileY
+	 *            y-coordinate
+	 */
+	public void nextCustomTile(int tileX, int tileY) {
+		int tileValue = 0;
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				if (tiles[x][y] > tileValue) {
+					tileValue = tiles[x][y];
+				}
+			}
+		}
+		tileValue++;
+		tiles[tileX][tileY] = tileValue;
+	}
+
+	/**
+	 * Indicates whether the customization is completed
+	 * 
+	 * @return true if customization completed; false otherwise
+	 */
+	public boolean customizationCompleted() {
+		int highestTileValue = 0;
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				if (tiles[x][y] > highestTileValue) {
+					highestTileValue = tiles[x][y];
+				}
+			}
+		}
+		return highestTileValue == 15;
+	}
+
 	public int[][] getTiles() {
 		return tiles;
+	}
+
+	public boolean isCustom() {
+		return custom;
+	}
+
+	public void setCustom(boolean custom) {
+		this.custom = custom;
 	}
 
 	@Override

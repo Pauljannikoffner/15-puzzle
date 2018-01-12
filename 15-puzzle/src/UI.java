@@ -17,6 +17,7 @@ public class UI {
 	private JPanel commandPanel;
 	private JButton shuffle;
 	private JButton solve;
+	private JButton customBoard;
 
 	public UI(Board board, ActionListener listener) {
 		frame = new JFrame("Fifteen-Puzzle");
@@ -54,6 +55,10 @@ public class UI {
 		solve.addActionListener(listener);
 		commandPanel.add(solve);
 
+		customBoard = new JButton("custom board");
+		customBoard.addActionListener(listener);
+		commandPanel.add(customBoard);
+
 		frame.add(commandPanel, BorderLayout.PAGE_END);
 
 		frame.setVisible(true);
@@ -68,6 +73,25 @@ public class UI {
 		}
 	}
 
+	public void displayCustom(Board board) {
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				tileButtons[x][y].setText("" + board.getTiles()[x][y]);
+				tileButtons[x][y].setEnabled(board.getTiles()[x][y] == 0);
+			}
+		}
+	}
+
+	public void customization() {
+		shuffle.setEnabled(false);
+		solve.setEnabled(false);
+	}
+
+	public void customizationCompleted() {
+		shuffle.setEnabled(true);
+		solve.setEnabled(true);
+	}
+
 	public JButton getTileButtons(int x, int y) {
 		return tileButtons[x][y];
 	}
@@ -78,5 +102,9 @@ public class UI {
 
 	public JButton getSolve() {
 		return solve;
+	}
+
+	public JButton getCustomBoard() {
+		return customBoard;
 	}
 }
