@@ -9,6 +9,12 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+/**
+ * View as in MVC pattern.
+ * 
+ * @author Paul Jannik Offner
+ * @version 12.01.2018
+ */
 public class UI {
 
 	private JFrame frame;

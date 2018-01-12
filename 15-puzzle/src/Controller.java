@@ -2,6 +2,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.LinkedList;
 
+/**
+ * Controller as in MVC pattern.
+ * 
+ * @author Paul Jannik Offner
+ * @version 12.01.2018
+ */
 public class Controller implements ActionListener {
 
 	private UI ui;

@@ -1,9 +1,10 @@
 import java.util.HashSet;
 
 /**
- * Representation of a board.
+ * Representation of a board, model as in MVC pattern.
  * 
- * @author paulj
+ * @author Paul Jannik Offner
+ * @version 12.01.2018
  */
 public class Board {
 

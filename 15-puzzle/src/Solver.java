@@ -2,9 +2,10 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * Manipulating the board
+ * Used to manipulate the board.
  * 
- * @author paulj
+ * @author Paul Jannik Offner
+ * @version 12.01.2018
  */
 public class Solver {
 
