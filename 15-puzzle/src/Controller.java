@@ -9,7 +9,7 @@ import java.util.LinkedList;
  * @version 12.01.2018
  */
 public class Controller implements ActionListener {
-
+	
 	private UI ui;
 	private Solver solver;
 	private Board board;
