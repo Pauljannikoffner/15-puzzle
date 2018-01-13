@@ -48,12 +48,12 @@ public class Solver {
 	 */
 	public boolean isSolvable(Board board) {
 		int result = 0;
-		int previous = board.getTiles()[0][0];
+		int previous = 0;
 
 		for (int x = 0; x < 4; x++) {
 			for (int y = 0; y < 4; y++) {
 				if (board.getTiles()[x][y] == 0) {
-					result += x + 1;
+					result += x;
 				} else if (previous > board.getTiles()[x][y]) {
 					result += previous;
 					result -= board.getTiles()[x][y];
@@ -61,7 +61,7 @@ public class Solver {
 				previous = board.getTiles()[x][y];
 			}
 		}
-		return result % 2 == 0;
+		return result % 2 == 1;
 	}
 
 	/**

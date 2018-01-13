@@ -31,8 +31,9 @@ public class Controller implements ActionListener {
 				ui.solving();
 				LinkedList<Board> goalPath = solver.solve(board);
 				board = goalPath.getFirst();
+				printPathsToConsole(goalPath);
 				ui.solvingCompleted();
-				output(goalPath);
+				showGoalPath(goalPath);
 			} else {
 				System.out.println("This Puzzle is not solvable.");
 			}
@@ -63,7 +64,7 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	private void output(LinkedList<Board> goalPath) {
+	private void printPathsToConsole(LinkedList<Board> goalPath) {
 		for (int i = goalPath.size(); i > 0; i--) {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
@@ -72,9 +73,7 @@ public class Controller implements ActionListener {
 				System.out.print(System.lineSeparator());
 			}
 			System.out.print(System.lineSeparator());
-			ui.display(goalPath.get(i - 1));
 		}
-		System.out.print(System.lineSeparator());
 	}
 
 	private String prettyOutput(int tileValue) {
@@ -83,6 +82,12 @@ public class Controller implements ActionListener {
 			return " " + tileValue + " ";
 		} else {
 			return tileValue + " ";
+		}
+	}
+
+	private void showGoalPath(LinkedList<Board> goalPath) {
+		for (int i = goalPath.size(); i > 0; i--) {
+			ui.display(goalPath.get(i - 1));
 		}
 	}
 }
