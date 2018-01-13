@@ -47,21 +47,39 @@ public class Solver {
 	 * @return true if this board has a solution; false otherwise
 	 */
 	public boolean isSolvable(Board board) {
-		int result = 0;
-		int previous = 0;
+		int blankPosition = 0;
+		int inversionCount = 0;
 
 		for (int x = 0; x < 4; x++) {
 			for (int y = 0; y < 4; y++) {
 				if (board.getTiles()[x][y] == 0) {
-					result += x;
-				} else if (previous > board.getTiles()[x][y]) {
-					result += previous;
-					result -= board.getTiles()[x][y];
+					blankPosition = x;
 				}
-				previous = board.getTiles()[x][y];
 			}
 		}
-		return result % 2 == 1;
+
+		int[] boardArray = new int[15];
+
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				if (board.getTiles()[x][y] != 0) {
+					for (int i = 0; i < boardArray.length; i++) {
+						if (boardArray[i] == 0) {
+							boardArray[i] = board.getTiles()[x][y];
+							break;
+						}
+					}
+				}
+			}
+		}
+		
+		for (int i = 0; i < boardArray.length - 1; i++) {
+			if (boardArray[i] > boardArray[i+1]) {
+				inversionCount++;
+			}
+		}
+
+		return (blankPosition + inversionCount) % 2 == 1;
 	}
 
 	/**
