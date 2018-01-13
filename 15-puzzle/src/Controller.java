@@ -10,8 +10,6 @@ import java.util.LinkedList;
  */
 public class Controller implements ActionListener {
 	
-	// Paul
-
 	private UI ui;
 	private Solver solver;
 	private Board board;
