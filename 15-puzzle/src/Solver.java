@@ -9,6 +9,7 @@ import java.util.Random;
  */
 public class Solver {
 
+    // vika 
 	private LinkedList<LinkedList<Board>> frontier;
 
 	public Solver() {
