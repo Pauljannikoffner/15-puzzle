@@ -21,6 +21,9 @@ public class Board {
 		custom = false;
 	}
 
+	/**
+	 * Sets the board to the empty state (All tiles = 0).
+	 */
 	public void setToEmptyState() {
 		for (int x = 0; x < 4; x++) {
 			for (int y = 0; y < 4; y++) {
@@ -30,7 +33,7 @@ public class Board {
 	}
 
 	/**
-	 * Sets the board to the goal state
+	 * Sets the board to the goal state.
 	 */
 	public void setToGoalState() {
 		for (int x = 0; x < 4; x++) {
@@ -174,7 +177,7 @@ public class Board {
 	 * 
 	 * @return true if customization completed; false otherwise
 	 */
-	public boolean customizationCompleted() {
+	public boolean isCustomizationCompleted() {
 		int highestTileValue = 0;
 		for (int x = 0; x < 4; x++) {
 			for (int y = 0; y < 4; y++) {

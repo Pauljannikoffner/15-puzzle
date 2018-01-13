@@ -2,7 +2,7 @@ import java.util.LinkedList;
 import java.util.Random;
 
 /**
- * Used to manipulate the board.
+ * Used to solve a puzzle.
  * 
  * @author Paul Jannik Offner
  * @version 12.01.2018

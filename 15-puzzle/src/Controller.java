@@ -28,35 +28,27 @@ public class Controller implements ActionListener {
 			ui.display(board);
 		} else if (e.getSource().equals(ui.getSolve())) {
 			if (solver.isSolvable(board)) {
-				LinkedList<Board> path = solver.solve(board);
-				board = path.getFirst();
-				for (int i = path.size(); i > 0; i--) {
-					System.out.println("");
-					for (int x = 0; x < 4; x++) {
-						for (int y = 0; y < 4; y++) {
-							System.out.print(prettyOutput(path.get(i - 1).getTiles()[x][y]));
-						}
-						System.out.println("");
-					}
-					ui.display(path.get(i - 1));
-				}
-				System.out.println("");
+				ui.solving();
+				LinkedList<Board> goalPath = solver.solve(board);
+				board = goalPath.getFirst();
+				ui.solvingCompleted();
+				output(goalPath);
 			} else {
 				System.out.println("This Puzzle is not solvable.");
 			}
-		} else if (e.getSource().equals(ui.getCustomBoard())) {
+		} else if (e.getSource().equals(ui.getCustom())) {
 			board.setCustom(true);
 			board.setToEmptyState();
 			ui.customization();
-			ui.displayCustom(board);
+			ui.display(board);
 		} else {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
 					if (e.getSource().equals(ui.getTileButtons(x, y))) {
 						if (board.isCustom()) {
 							board.nextCustomTile(x, y);
-							ui.displayCustom(board);
-							if (board.customizationCompleted()) {
+							ui.display(board);
+							if (board.isCustomizationCompleted()) {
 								board.setCustom(false);
 								ui.customizationCompleted();
 								ui.display(board);
@@ -71,12 +63,26 @@ public class Controller implements ActionListener {
 		}
 	}
 
-	private String prettyOutput(int i) {
-		int length = String.valueOf(i).length();
+	private void output(LinkedList<Board> goalPath) {
+		for (int i = goalPath.size(); i > 0; i--) {
+			for (int x = 0; x < 4; x++) {
+				for (int y = 0; y < 4; y++) {
+					System.out.print(prettyOutput(goalPath.get(i - 1).getTiles()[x][y]));
+				}
+				System.out.print(System.lineSeparator());
+			}
+			System.out.print(System.lineSeparator());
+			ui.display(goalPath.get(i - 1));
+		}
+		System.out.print(System.lineSeparator());
+	}
+
+	private String prettyOutput(int tileValue) {
+		int length = String.valueOf(tileValue).length();
 		if (length == 1) {
-			return " " + i + " ";
+			return " " + tileValue + " ";
 		} else {
-			return i + " ";
+			return tileValue + " ";
 		}
 	}
 }

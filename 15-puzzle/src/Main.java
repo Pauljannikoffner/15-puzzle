@@ -1,5 +1,5 @@
 /**
- * Main class, includes main method.
+ * Includes main method.
  * 
  * @author Paul Jannik Offner
  * @version 12.01.2018

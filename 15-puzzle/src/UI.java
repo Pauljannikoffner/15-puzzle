@@ -24,7 +24,7 @@ public class UI {
 	private JPanel commandPanel;
 	private JButton shuffle;
 	private JButton solve;
-	private JButton customBoard;
+	private JButton custom;
 
 	public UI(Board board, ActionListener listener) {
 		frame = new JFrame("Fifteen-Puzzle");
@@ -65,10 +65,10 @@ public class UI {
 		solve.setFont(new Font("Arial", Font.PLAIN, 25));
 		commandPanel.add(solve);
 
-		customBoard = new JButton("custom");
-		customBoard.addActionListener(listener);
-		customBoard.setFont(new Font("Arial", Font.PLAIN, 25));
-		commandPanel.add(customBoard);
+		custom = new JButton("custom");
+		custom.addActionListener(listener);
+		custom.setFont(new Font("Arial", Font.PLAIN, 25));
+		commandPanel.add(custom);
 
 		frame.add(commandPanel, BorderLayout.PAGE_END);
 
@@ -76,19 +76,19 @@ public class UI {
 	}
 
 	public void display(Board board) {
-		for (int x = 0; x < 4; x++) {
-			for (int y = 0; y < 4; y++) {
-				tileButtons[x][y].setText("" + board.getTiles()[x][y]);
-				tileButtons[x][y].setEnabled(board.isMovable(x, y));
+		if (board.isCustom()) {
+			for (int x = 0; x < 4; x++) {
+				for (int y = 0; y < 4; y++) {
+					tileButtons[x][y].setText("" + board.getTiles()[x][y]);
+					tileButtons[x][y].setEnabled(board.getTiles()[x][y] == 0);
+				}
 			}
-		}
-	}
-
-	public void displayCustom(Board board) {
-		for (int x = 0; x < 4; x++) {
-			for (int y = 0; y < 4; y++) {
-				tileButtons[x][y].setText("" + board.getTiles()[x][y]);
-				tileButtons[x][y].setEnabled(board.getTiles()[x][y] == 0);
+		} else {
+			for (int x = 0; x < 4; x++) {
+				for (int y = 0; y < 4; y++) {
+					tileButtons[x][y].setText("" + board.getTiles()[x][y]);
+					tileButtons[x][y].setEnabled(board.isMovable(x, y));
+				}
 			}
 		}
 	}
@@ -96,11 +96,30 @@ public class UI {
 	public void customization() {
 		shuffle.setEnabled(false);
 		solve.setEnabled(false);
+		custom.setEnabled(false);
 	}
 
 	public void customizationCompleted() {
 		shuffle.setEnabled(true);
 		solve.setEnabled(true);
+		custom.setEnabled(true);
+	}
+
+	public void solving() {
+		shuffle.setEnabled(false);
+		solve.setEnabled(false);
+		custom.setEnabled(false);
+		for (int x = 0; x < 4; x++) {
+			for (int y = 0; y < 4; y++) {
+				tileButtons[x][y].setEnabled(false);
+			}
+		}
+	}
+
+	public void solvingCompleted() {
+		shuffle.setEnabled(true);
+		solve.setEnabled(true);
+		custom.setEnabled(true);
 	}
 
 	public JButton getTileButtons(int x, int y) {
@@ -115,7 +134,7 @@ public class UI {
 		return solve;
 	}
 
-	public JButton getCustomBoard() {
-		return customBoard;
+	public JButton getCustom() {
+		return custom;
 	}
 }
