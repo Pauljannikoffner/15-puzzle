@@ -54,6 +54,7 @@ public class Solver {
 			for (int y = 0; y < 4; y++) {
 				if (board.getTiles()[x][y] == 0) {
 					blankPosition = x;
+					break;
 				}
 			}
 		}
@@ -73,9 +74,11 @@ public class Solver {
 			}
 		}
 		
-		for (int i = 0; i < boardArray.length - 1; i++) {
-			if (boardArray[i] > boardArray[i+1]) {
-				inversionCount++;
+		for (int i = 0; i < boardArray.length; i++) {
+			for (int j = 0; j < i; j++) {
+				if (boardArray[i] < boardArray[j]) {
+					inversionCount++;
+				}
 			}
 		}
 
