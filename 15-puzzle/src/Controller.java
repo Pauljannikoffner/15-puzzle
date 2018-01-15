@@ -22,11 +22,11 @@ public class Controller implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource().equals(ui.getShuffle())) {
+	public void actionPerformed(ActionEvent event) {
+		if (event.getSource().equals(ui.getShuffle())) {
 			board = solver.shuffle(board, 5);
 			ui.display(board);
-		} else if (e.getSource().equals(ui.getSolve())) {
+		} else if (event.getSource().equals(ui.getSolve())) {
 			if (solver.isSolvable(board)) {
 				ui.solving();
 				LinkedList<Board> goalPath = solver.solve(board);
@@ -37,7 +37,7 @@ public class Controller implements ActionListener {
 			} else {
 				System.out.println("This Puzzle is not solvable.");
 			}
-		} else if (e.getSource().equals(ui.getCustom())) {
+		} else if (event.getSource().equals(ui.getCustom())) {
 			board.setCustom(true);
 			board.setToEmptyState();
 			ui.customization();
@@ -45,7 +45,7 @@ public class Controller implements ActionListener {
 		} else {
 			for (int x = 0; x < 4; x++) {
 				for (int y = 0; y < 4; y++) {
-					if (e.getSource().equals(ui.getTileButtons(x, y))) {
+					if (event.getSource().equals(ui.getTileButtons(x, y))) {
 						if (board.isCustom()) {
 							board.nextCustomTile(x, y);
 							ui.display(board);

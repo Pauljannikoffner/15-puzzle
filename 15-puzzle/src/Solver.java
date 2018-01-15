@@ -103,7 +103,6 @@ public class Solver {
 			addNewPaths(path);
 		}
 		System.out.println("Puzzle solved! Solution:");
-		System.out.println(System.lineSeparator());
 		return bestPathInFrontier();
 	}
 
