@@ -73,7 +73,7 @@ public class Solver {
 				}
 			}
 		}
-		
+
 		for (int i = 0; i < boardArray.length; i++) {
 			for (int j = 0; j < i; j++) {
 				if (boardArray[i] < boardArray[j]) {
@@ -103,6 +103,7 @@ public class Solver {
 			addNewPaths(path);
 		}
 		System.out.println("Puzzle solved! Solution:");
+		System.out.println(System.lineSeparator());
 		return bestPathInFrontier();
 	}
 
@@ -141,5 +142,14 @@ public class Solver {
 				frontier.addFirst(nextPath);
 			}
 		}
+	}
+
+	public void customization(Board board) {
+		board.setCustom(true);
+		board.setToEmptyState();
+	}
+
+	public void nextCustomTile(Board board, int x, int y) {
+		board.nextCustomTile(x, y);
 	}
 }
